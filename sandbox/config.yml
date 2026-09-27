@@ -18,7 +18,8 @@ collections:
     create: true
     extension: md
     format: yaml-frontmatter
-    path: "{{fields.slug}}/index"
+    slug: "{{fields.slug}}"
+    path: "{{filename}}/index"
     media_folder: ""
     public_folder: ""
     preview_path: "posts/{{dirname}}/"

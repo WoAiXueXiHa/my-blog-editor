@@ -56,5 +56,5 @@ collections:
       - label: Markdown 正文
         name: body
         widget: markdown
-        modes: [raw]
-        hint: 从二级标题开始。使用图片按钮上传，图片应保存到当前文章目录。
+        modes: [raw, rich_text]
+        hint: 从二级标题开始。原文模式直接编辑 Markdown；切换到可视化模式可用格式和图片按钮。旧文包含公式或复杂代码时，切换模式后先核对内容再保存。

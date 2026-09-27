@@ -1,4 +1,5 @@
 site_url: https://code-learn-build-evolve.vercel.app/
+show_preview_links: false
 backend:
   name: github
   repo: WoAiXueXiHa/my-blog

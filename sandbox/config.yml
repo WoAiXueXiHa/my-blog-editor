@@ -16,10 +16,11 @@ collections:
     label_singular: 文章
     folder: content/posts
     create: true
+    identifier_field: slug
     extension: md
     format: yaml-frontmatter
-    slug: "{{fields.slug}}"
-    path: "{{filename}}/index"
+    slug: "{{slug}}"
+    path: "{{slug}}/index"
     media_folder: ""
     public_folder: ""
     preview_path: "posts/{{dirname}}/"
@@ -28,7 +29,7 @@ collections:
       - label: 英文路径
         name: slug
         widget: string
-        required: false
+        required: true
         pattern: ['^[a-z0-9]+(-[a-z0-9]+)*$', '只能使用小写字母、数字和连字符']
         hint: 新文章必填；旧文章保持空白，已发布文章不要改路径。
       - { label: 发布时间, name: date, widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ" }

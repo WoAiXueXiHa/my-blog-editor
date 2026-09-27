@@ -41,11 +41,13 @@ collections:
         name: categories
         widget: list
         min: 1
+        max: 20
         field: { label: 分类, name: category, widget: string }
       - label: 标签
         name: tags
         widget: list
         min: 1
+        max: 30
         field: { label: 标签, name: tag, widget: string }
       - { label: 摘要, name: summary, widget: text }
       - { label: 系列, name: series, widget: list, required: false, field: { label: 系列, name: item, widget: string } }

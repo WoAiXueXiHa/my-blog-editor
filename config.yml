@@ -15,6 +15,7 @@ collections:
     label: 文章
     label_singular: 文章
     folder: content/posts
+    delete: false
     create: false
     extension: md
     format: yaml-frontmatter

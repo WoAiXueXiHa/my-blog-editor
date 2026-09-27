@@ -49,7 +49,7 @@ collections:
         field: { label: 标签, name: tag, widget: string }
       - { label: 摘要, name: summary, widget: text }
       - { label: 系列, name: series, widget: list, required: false, field: { label: 系列, name: item, widget: string } }
-      - { label: 系列序号, name: seriesOrder, widget: number, required: false, value_type: int, min: 1 }
+      - { label: 系列序号, name: seriesOrder, widget: number, required: false, value_type: int }
       - { label: 推荐, name: featured, widget: boolean, default: false, required: false }
       - { label: 状态, name: status, widget: string, required: false }
       - { label: 相关文章, name: related, widget: list, required: false, field: { label: 文章, name: item, widget: string } }

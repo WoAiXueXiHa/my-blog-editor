@@ -31,7 +31,7 @@ collections:
         widget: string
         required: true
         pattern: ['^[a-z0-9]+(-[a-z0-9]+)*$', '只能使用小写字母、数字和连字符']
-        hint: 新文章必填；旧文章保持空白，已发布文章不要改路径。
+        hint: 测试新文章必填，例如 test；此字段决定 content/posts/<slug>/index.md 的目录名。
       - { label: 发布时间, name: date, widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ" }
       - { label: 修改时间, name: lastmod, widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ" }
       - { label: 发布, name: draft, widget: boolean, default: false }

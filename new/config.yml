@@ -12,13 +12,15 @@ media_folder: static/images
 public_folder: /images
 collections:
   - name: posts
-    label: 文章
+    label: 新建文章
     label_singular: 文章
     folder: content/posts
-    create: false
+    create: true
+    identifier_field: slug
     extension: md
     format: yaml-frontmatter
-    path: "{{fields.slug}}/index"
+    slug: "{{slug}}"
+    path: "{{slug}}/index"
     media_folder: ""
     public_folder: ""
     preview_path: "posts/{{dirname}}/"
@@ -27,9 +29,9 @@ collections:
       - label: 英文路径
         name: slug
         widget: string
-        required: false
+        required: true
         pattern: ['^[a-z0-9]+(-[a-z0-9]+)*$', '只能使用小写字母、数字和连字符']
-        hint: 新文章必填；旧文章保持空白，已发布文章不要改路径。
+        hint: 新文章必填，例如 go-example；此字段决定 content/posts/<slug>/index.md 的目录名。
       - { label: 发布时间, name: date, widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ" }
       - { label: 修改时间, name: lastmod, widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ" }
       - { label: 发布, name: draft, widget: boolean, default: false }

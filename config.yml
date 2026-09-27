@@ -54,7 +54,6 @@ collections:
       - { label: 相关文章, name: related, widget: list, required: false, field: { label: 文章, name: item, widget: string } }
       - label: Markdown 正文
         name: body
-        widget: code
-        default_language: markdown
-        output_code_only: true
-        hint: 从二级标题开始。图片可直接拖入编辑器，文件将保存在当前文章目录。
+        widget: markdown
+        modes: [raw]
+        hint: 从二级标题开始。使用图片按钮上传，图片应保存到当前文章目录。

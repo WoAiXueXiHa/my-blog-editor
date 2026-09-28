@@ -41,12 +41,14 @@ collections:
       - label: 分类
         name: categories
         widget: list
+        hint: 至少一项；沿用已有大类，例如 Go 语言、MySQL、AI 工程、计算机网络、数据结构。输入后按 Enter。
         min: 1
         max: 20
         field: { label: 分类, name: category, widget: string }
       - label: 标签
         name: tags
         widget: list
+        hint: 至少一项；写文章的具体关键词，例如 Go、并发、Channel。每输入一项按 Enter。
         min: 1
         max: 30
         field: { label: 标签, name: tag, widget: string }

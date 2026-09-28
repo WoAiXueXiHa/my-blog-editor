@@ -1,6 +1,6 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { validate, originalSlug } = require('./cms-validation');
+const { validate, originalSlug, assertNewPathAvailable } = require('./cms-validation');
 const base = {title:'文章',topic:'golang',summary:'摘要',categories:['Go'],tags:['channel'],draft:false,date:'2026-09-01T12:00:00+08:00',lastmod:'2026-09-01T12:00:00+08:00',slug:'test-post',body:'## 标题\n```go\nfmt.Println(1)\n```\n![图](go.png)'};
 const fresh = {mode:'new',newRecord:true};
 test('valid article',()=>assert.deepEqual(validate(base,fresh),[]));
@@ -20,3 +20,9 @@ test('old path remains locked',()=>{
  assert(validate({...base,slug:'changed'},{mode:'edit',newRecord:false,path:'content/posts/go-channel/index.md'}).some(e=>e.includes('锁定')));
 });
 test('new entry rejects historical edits',()=>assert(validate(base,{mode:'new',newRecord:false,path:'content/posts/test-post/index.md'}).some(e=>e.includes('历史'))));
+
+test('new path collision is rejected before save', async()=>{
+ await assert.rejects(assertNewPathAvailable('test','cms-editor-test',async()=>({status:200})),/已存在/);
+ await assert.doesNotReject(assertNewPathAvailable('unique-post','cms-editor-test',async()=>({status:404})));
+ await assert.rejects(assertNewPathAvailable('unique-post','cms-editor-test',async()=>({status:503})),/路径检查失败/);
+});

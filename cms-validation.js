@@ -55,14 +55,27 @@
     return [...new Set(errors)];
   }
 
+  async function assertNewPathAvailable(slug, branch, request = fetch) {
+    const url = `https://raw.githubusercontent.com/WoAiXueXiHa/my-blog/${branch}/content/posts/${slug}/index.md?cms-check=${Date.now()}`;
+    let response;
+    try {
+      response = await request(url, { method: 'HEAD', cache: 'no-store' });
+    } catch (_) {
+      throw new Error('无法检查文章路径是否已存在，请稍后重试，未提交');
+    }
+    if (response.status === 200) throw new Error(`英文路径 ${slug} 已存在，请换一个新的英文路径；编辑旧文请使用旧文入口`);
+    if (response.status !== 404) throw new Error(`路径检查失败（HTTP ${response.status}），未提交，请稍后重试`);
+  }
+
   function register(CMS, mode) {
     const createdInSession = new Set();
     const test = mode === 'sandbox-new' || mode === 'sandbox-edit';
     const editing = mode === 'edit' || mode === 'sandbox-edit';
-    CMS.registerEventListener({ name: 'preSave', handler: ({ entry }) => {
+    CMS.registerEventListener({ name: 'preSave', handler: async ({ entry }) => {
       const data = entry.get('data').toJS();
       const errors = validate(data, { mode: editing ? 'edit' : 'new', path: entry.get('path'), hash: location.hash, newRecord: entry.get('newRecord'), createdInSession });
       if (errors.length) throw new Error('保存前校验失败：\n' + errors.map((error, index) => `${index + 1}. ${error}`).join('\n'));
+      if (!editing && entry.get('newRecord')) await assertNewPathAvailable(String(data.slug).trim(), test ? 'cms-editor-test' : 'master');
       return entry.get('data');
     }});
     CMS.registerEventListener({ name: 'postSave', handler: ({ entry }) => {
@@ -82,5 +95,5 @@
       document.body.appendChild(note);
     });
   }
-  return { validate, originalSlug, register };
+  return { validate, originalSlug, assertNewPathAvailable, register };
 });

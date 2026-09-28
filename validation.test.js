@@ -5,7 +5,7 @@ const base = {title:'文章',topic:'golang',summary:'摘要',categories:['Go'],t
 const fresh = {mode:'new',newRecord:true};
 test('valid article',()=>assert.deepEqual(validate(base,fresh),[]));
 for(const [name,change,fragment] of [
- ['missing category',{categories:[]},'分类'],['missing tag',{tags:[]},'标签'],
+ ['missing category',{categories:[]},'分类'],['title whitespace',{title:' 文章'},'首尾'],['missing tag',{tags:[]},'标签'],
  ['empty image alt',{body:'## 文\n![](go.png)'},'图片须'],
  ['external image',{body:'## 文\n![图](https://gitee.com/a.png)'},'外链'],
  ['invalid date',{date:'2026-02-30T12:00:00+08:00'},'日期'],

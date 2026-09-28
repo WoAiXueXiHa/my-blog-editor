@@ -19,7 +19,9 @@
     const slug = String(data.slug || '').trim();
     const original = originalSlug(context.path, context.hash);
     for (const [key, label] of [['title', '标题'], ['topic', '主题'], ['summary', '摘要']]) {
-      if (!String(data[key] || '').trim()) errors.push(`${label}不能为空`);
+      const value = String(data[key] || '');
+      if (!value.trim()) errors.push(`${label}不能为空`);
+      else if ((key === 'title' || key === 'summary') && value !== value.trim()) errors.push(`${label}首尾不能有空白`);
     }
     for (const [key, label] of [['categories', '分类'], ['tags', '标签']]) {
       if (!Array.isArray(data[key]) || !data[key].some(item => String(item || '').trim())) errors.push(`至少填写一项${label}`);
